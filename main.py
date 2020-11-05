@@ -9,11 +9,6 @@ plt.style.use('ggplot')  # 7, 14
 corona_totals = pd.read_csv('ca_county_coronavirus_totals.csv')
 county_info = pd.read_csv('ca_county_population_income.csv')
 
-# Counties with pop > 700,000
-major_counties = ['Los Angeles', 'San Diego', 'Orange', 'Riverside', 'San Bernardino', 'Santa Clara',
-                  'Alameda', 'Sacramento', 'Contra Costa', 'Fresno County', 'Kern', 'San Francisco',
-                  'Ventura', 'San Mateo', 'San Joaquin']
-
 most_recent_date = corona_totals.get('date').iloc[0]
 
 corona_by_county = (
@@ -27,6 +22,9 @@ merged_county_info = merged_county_info.assign(
     death_per_1000=1000 * (merged_county_info.get('deaths') / merged_county_info.get('population'))
 )
 merged_county_info = merged_county_info.set_index('county')
+
+# Counties with pop > 700,000
+major_counties = merged_county_info[merged_county_info.get('population') > 700_000].index.to_list()
 
 print(merged_county_info)
 merged_county_info.plot(kind='scatter', x='median_household_income', y='death_per_1000', alpha=0.8)
