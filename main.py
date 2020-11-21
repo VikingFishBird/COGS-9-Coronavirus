@@ -3,6 +3,10 @@ import pandas as pd
 import matplotlib as mplt
 import matplotlib.pyplot as plt
 
+# Settings
+use_most_recent_date = False
+date = '2020-11-03'
+
 # Configure plot settings
 mplt.rcParams['figure.figsize'] = (8, 5)
 plt.style.use('ggplot')  # 7, 14
@@ -12,11 +16,12 @@ corona_totals = pd.read_csv('ca_county_coronavirus_totals.csv')
 county_info = pd.read_csv('ca_county_population_income.csv')
 
 # access most recent date
-most_recent_date = corona_totals.get('date').iloc[0]
+if use_most_recent_date:
+    date = corona_totals.get('date').iloc[0]
 
 # create a dataframe of each county's updated corona info
 corona_by_county = (
-    corona_totals[corona_totals.get('date') == most_recent_date]
+    corona_totals[corona_totals.get('date') == date]
         .get(['county', 'deaths'])
 )
 
