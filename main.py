@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 # Settings
 use_most_recent_date = True
 label_major_counties = False
-date = '2020-11-03'
+date = '2020-12-12'
 
 
 # Configure plot settings
